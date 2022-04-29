@@ -12,20 +12,27 @@ export const App = () => {
         if (name === 'inc') {
             setCount(count + 1)
         }
-        if (name === 'red' && count > 0) {
-            setCount(count - 1)
-        }
         if (name === 'res') {
             setCount(0)
         }
+        if (name === 'set') {
+            setCount(count)
+        }
     }
 
+    const maxValue = 5
 
     return (
         <div className="App">
-            <Header title={'This is my Counter'}/>
-            <Count value={count}/>
-            <Buttons callback={onclickButton}/>
+            <h1>
+                <Header title={'This is my Counter'}/>
+            </h1>
+            <h3>
+                <Count value={count <= 5 ? count : maxValue}/>
+            </h3>
+            <div>
+                <Buttons callback={onclickButton} value={count}/>
+            </div>
         </div>
     )
 }

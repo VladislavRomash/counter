@@ -6,8 +6,8 @@ type HeaderPropsType = {
 
 export const Header = ({title}: HeaderPropsType) => {
     return (
-        <h1>
+        <>
             {title}
-        </h1>
+        </>
     );
 };

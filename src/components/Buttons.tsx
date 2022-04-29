@@ -1,26 +1,31 @@
 import React from 'react';
+import s from './css.module/Buttons.module.css'
 
-export type ButtonsNameType = 'red' | 'res' | 'inc'
+export type ButtonsNameType = 'set' | 'res' | 'inc'
 
 type ButtonsPropsType = {
     callback: (name: ButtonsNameType) => void
+    value: number
 }
 
-export const Buttons = ({callback}: ButtonsPropsType) => {
+export const Buttons = ({callback, value}: ButtonsPropsType) => {
 
     const onClickHandler = (name: ButtonsNameType) => {
         callback(name)
     }
 
     return (
-        <div>
-            <span style={{paddingRight: '10px'}}>
-                <button onClick={() => onClickHandler('red')}>red</button>
+        <div className={s.styleComponents}>
+            <span className={s.buttons}>
+                <button onClick={() => onClickHandler('res')}>res</button>
             </span>
-            <span style={{paddingRight: '10px'}}>
-                <button onClick={() => onClickHandler('res')}>res</button></span>
-            <span>
-                <button onClick={() => onClickHandler('inc')}>inc</button>
+            <span className={s.buttons}>
+                <button onClick={() => onClickHandler('inc')}
+                        disabled={value === 5}>inc</button>
+            </span>
+            <span className={s.buttons}>
+                <button onClick={() => onClickHandler('set')}
+                        disabled={true}>set</button>
             </span>
         </div>
     );
