@@ -2,14 +2,15 @@ import React from 'react';
 import s from './css.module/Count.module.css'
 
 type CountPropsType = {
-    value: number
+    score: number | string
+    maxScore: number
 }
 
-export const Count = ({value}: CountPropsType) => {
+export const Count = ({score, maxScore}: CountPropsType) => {
 
     return (
-        <div className={value < 5 ? s.count : s.error}>
-            {value}
+        <div className={score < maxScore ? s.count : s.error}>
+            {score}
         </div>
     );
 };

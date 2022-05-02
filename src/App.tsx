@@ -1,38 +1,62 @@
 import React, {useState} from 'react';
 import './App.css';
-import {Header} from './components/Header';
-import {Count} from './components/Count';
-import {Buttons, ButtonsNameType} from './components/Buttons';
+import {ButtonsNameType} from './components/Buttons';
+import {Counter} from './components/Counter';
+import {Settings} from './components/Settings';
+
+export type ScoreType = {
+    title: string
+    currentScore: number
+    startScore: number
+    maxScore: number
+}
 
 export const App = () => {
 
-    const [count, setCount] = useState<number>(0)
+    const [score, setScore] = useState<ScoreType[]>([
+        {title: 'This is my Counter', currentScore: 0, startScore: 0, maxScore: 5}
+    ])
+    console.log(score)
 
     const onclickButton = (name: ButtonsNameType) => {
         if (name === 'inc') {
-            setCount(count + 1)
+            setScore(score.map(m => {
+                return ({...m, currentScore: m.currentScore += 1})
+            }))
         }
         if (name === 'res') {
-            setCount(0)
-        }
-        if (name === 'set') {
-            setCount(count)
+            setScore(score.map(m => {
+                return ({...m, currentScore: m.startScore})
+            }))
         }
     }
 
-    const maxValue = 5
+    const onClickSet = (value: number, valueMax: number) => {
+        setScore(score.map(m => {
+            return ({...m, startScore: Number(value), maxScore: Number(valueMax), currentScore: m.startScore})
+        }))
+    }
 
     return (
         <div className="App">
-            <h1>
-                <Header title={'This is my Counter'}/>
-            </h1>
-            <h3>
-                <Count value={count <= 5 ? count : maxValue}/>
-            </h3>
-            <div>
-                <Buttons callback={onclickButton} value={count}/>
-            </div>
+            {
+                score.map((m, i) => {
+                    return (
+                        <Counter key={i}
+                                 score={m}
+                                 onclickButton={onclickButton}/>
+                    )
+                })
+            }
+            {
+                score.map((m, i) => {
+                    return (
+                        <Settings key={i}
+                                  score={m}
+                                  callback={onClickSet}/>
+                    )
+                })
+            }
         </div>
     )
 }

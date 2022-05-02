@@ -5,10 +5,11 @@ export type ButtonsNameType = 'set' | 'res' | 'inc'
 
 type ButtonsPropsType = {
     callback: (name: ButtonsNameType) => void
-    value: number
+    score: number
+    maxScore: number
 }
 
-export const Buttons = ({callback, value}: ButtonsPropsType) => {
+export const Buttons = ({callback, score, maxScore}: ButtonsPropsType) => {
 
     const onClickHandler = (name: ButtonsNameType) => {
         callback(name)
@@ -21,11 +22,7 @@ export const Buttons = ({callback, value}: ButtonsPropsType) => {
             </span>
             <span className={s.buttons}>
                 <button onClick={() => onClickHandler('inc')}
-                        disabled={value === 5}>inc</button>
-            </span>
-            <span className={s.buttons}>
-                <button onClick={() => onClickHandler('set')}
-                        disabled={true}>set</button>
+                        disabled={score >= maxScore}>inc</button>
             </span>
         </div>
     );
