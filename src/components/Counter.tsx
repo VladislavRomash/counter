@@ -8,9 +8,11 @@ import {ScoreType} from '../App';
 
 type CounterPropsType = {
     onclickButton: (name: ButtonsNameType) => void
+    start: number
+    max: number
 }
 
-export const Counter = ({onclickButton}: CounterPropsType) => {
+export const Counter = ({onclickButton, start, max}: CounterPropsType) => {
 
     let score = useSelector<AppRootStateType, ScoreType>(state => state.score)
 
@@ -26,12 +28,15 @@ export const Counter = ({onclickButton}: CounterPropsType) => {
             <h2>
                 <Count
                     score={score.currentScore <= score.maxScore
-                    && score.startScore >= 0
-                    && score.startScore < score.maxScore ? score.currentScore : 'Incorrect value!'}
-                    maxScore={score.maxScore}/>
+                    && start >= 0
+                    && start < max ? score.currentScore : 'Incorrect value!'}
+                />
             </h2>
             <div>
-                <Buttons callback={onclickHandler} score={score.currentScore} maxScore={score.maxScore}/>
+                <Buttons callback={onclickHandler}
+                         start={start}
+                         max={max}
+                />
             </div>
         </div>
     );

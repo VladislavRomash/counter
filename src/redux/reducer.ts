@@ -3,8 +3,7 @@ import {ScoreType} from '../App';
 export type ActionType = CounterINCType
     | CounterRESType
     | CounterSettingType
-    | ChangeStartValue
-    | ChangeMaxValue
+    | ChangeCurrentValue
 
 const initialState: ScoreType =
     {
@@ -23,14 +22,12 @@ export const counterReducer = (state = initialState, action: ActionType): ScoreT
         case 'CLICK-BUTTON-SET': {
             return {
                 ...state,
-                currentScore: Number(state.startScore)
+                startScore: Number(action.startValue),
+                maxScore: Number(action.maxValue),
             }
         }
-        case 'CHANGE-START-VALUE': {
-            return {...state, startScore: Number(action.startValue)}
-        }
-        case 'CHANGE-MAX-VALUE': {
-            return {...state, maxScore: Number(action.maxValue)}
+        case 'CHANGE-CURRENT-VALUE': {
+            return {...state, currentScore: state.startScore}
         }
         default:
             return state
@@ -54,24 +51,17 @@ export const counterResAC = () => {
 }
 
 type CounterSettingType = ReturnType<typeof counterSettingAC>
-export const counterSettingAC = () => {
+export const counterSettingAC = (startValue: number, maxValue: number) => {
     return {
-        type: 'CLICK-BUTTON-SET',
+        type: 'CLICK-BUTTON-SET', startValue: startValue, maxValue: maxValue,
 
     } as const
 }
 
-type ChangeStartValue = ReturnType<typeof changeStartValue>
-export const changeStartValue = (value: string) => {
+type ChangeCurrentValue = ReturnType<typeof changeCurrentValue>
+export const changeCurrentValue = () => {
     return {
-        type: 'CHANGE-START-VALUE', startValue: value
-    } as const
-}
-
-type ChangeMaxValue = ReturnType<typeof changeMaxValue>
-export const changeMaxValue = (value: string) => {
-    return {
-        type: 'CHANGE-MAX-VALUE', maxValue: value
+        type: 'CHANGE-CURRENT-VALUE',
     } as const
 }
 

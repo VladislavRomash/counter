@@ -2,18 +2,19 @@ import React from 'react';
 import s from './css.module/Buttons.module.css'
 import {useSelector} from 'react-redux';
 import {AppRootStateType} from '../redux/store';
+import {ScoreType} from '../App';
 
 export type ButtonsNameType = 'set' | 'res' | 'inc'
 
 type ButtonsPropsType = {
     callback: (name: ButtonsNameType) => void
-    score: number
-    maxScore: number
+    start: number
+    max: number
 }
 
-export const Buttons = ({callback, score, maxScore}: ButtonsPropsType) => {
+export const Buttons = ({callback, start, max}: ButtonsPropsType) => {
 
-    let startScore = useSelector<AppRootStateType, number>(state => state.score.startScore)
+    let score = useSelector<AppRootStateType, ScoreType>(state => state.score)
 
     const onClickHandler = (name: ButtonsNameType) => {
         callback(name)
@@ -22,11 +23,12 @@ export const Buttons = ({callback, score, maxScore}: ButtonsPropsType) => {
     return (
         <div className={s.styleComponents}>
             <span className={s.buttons}>
-                <button onClick={() => onClickHandler('res')}>res</button>
+                <button onClick={() => onClickHandler('res')}
+                        disabled={start >= max || start < 0}>res</button>
             </span>
             <span className={s.buttons}>
                 <button onClick={() => onClickHandler('inc')}
-                        disabled={score >= maxScore || startScore >= maxScore}>inc</button>
+                        disabled={score.currentScore >= score.maxScore || start >= max || start < 0}>inc</button>
             </span>
         </div>
     );
