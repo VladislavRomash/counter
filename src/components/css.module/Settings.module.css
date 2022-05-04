@@ -16,3 +16,8 @@
 .button {
     padding-top: 5px;
 }
+
+.error {
+    border: red 2px solid;
+    background-color: palevioletred;
+}

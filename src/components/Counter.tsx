@@ -2,14 +2,17 @@ import React from 'react';
 import {Header} from './Header';
 import {Count} from './Count';
 import {Buttons, ButtonsNameType} from './Buttons';
+import {useSelector} from 'react-redux';
+import {AppRootStateType} from '../redux/store';
 import {ScoreType} from '../App';
 
 type CounterPropsType = {
-    score: ScoreType
     onclickButton: (name: ButtonsNameType) => void
 }
 
-export const Counter = ({score, onclickButton}: CounterPropsType) => {
+export const Counter = ({onclickButton}: CounterPropsType) => {
+
+    let score = useSelector<AppRootStateType, ScoreType>(state => state.score)
 
     const onclickHandler = (name: ButtonsNameType) => {
         onclickButton(name)
@@ -21,8 +24,11 @@ export const Counter = ({score, onclickButton}: CounterPropsType) => {
                 <Header title={score.title}/>
             </h1>
             <h2>
-                <Count score={score.currentScore <= score.maxScore ? score.currentScore : 'Enter correct start value'}
-                       maxScore={score.maxScore}/>
+                <Count
+                    score={score.currentScore <= score.maxScore
+                    && score.startScore >= 0
+                    && score.startScore < score.maxScore ? score.currentScore : 'Incorrect value!'}
+                    maxScore={score.maxScore}/>
             </h2>
             <div>
                 <Buttons callback={onclickHandler} score={score.currentScore} maxScore={score.maxScore}/>
