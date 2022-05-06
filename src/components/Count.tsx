@@ -11,8 +11,10 @@ export const Count = ({score}: CountPropsType) => {
 
     let maxScore = useSelector<AppRootStateType, number>(state => state.score.maxScore)
 
+    const style = score < maxScore ? s.count : s.error
+
     return (
-        <div className={score < maxScore ? s.count : s.error}>
+        <div className={style}>
             {score}
         </div>
     );

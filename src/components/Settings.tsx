@@ -1,15 +1,23 @@
 import React, {ChangeEvent} from 'react';
 import s from './css.module/Settings.module.css'
+import {changeCurrentValue, counterSettingAC} from '../redux/reducer';
+import {useDispatch} from 'react-redux';
 
 type SettingsPropsType = {
-    onSetValue: (startValue: number, maxValue: number) => void
     setStart: (value: number) => void
     start: number
     setMax: (value: number) => void
     max: number
 }
 
-export const Settings = ({onSetValue, setStart, start, setMax, max}: SettingsPropsType) => {
+export const Settings = ({setStart, start, setMax, max}: SettingsPropsType) => {
+
+    const dispatch = useDispatch()
+
+    const onSetValue = (startValue: number, maxValue: number) => {
+        dispatch(counterSettingAC(startValue, maxValue))
+        dispatch(changeCurrentValue())
+    }
 
     const onClickHandler = () => {
         onSetValue(start, max)
@@ -23,24 +31,28 @@ export const Settings = ({onSetValue, setStart, start, setMax, max}: SettingsPro
         setMax(+e.currentTarget.value)
     }
 
+    const startStyle = start < 0 || start >= max ? s.error : ''
+    const maxStyle = start >= max ? s.error : ''
+    const disabledButtonStyle = start < 0 || start >= max
+
     return (
         <div className={s.settings}>
             <div className={s.start}>
                 start value: <input type={'number'}
                                     value={start}
                                     onChange={onChangeHandlerStart}
-                                    className={(start < 0 || start >= max) ? s.error : ''}
+                                    className={startStyle}
             />
             </div>
             <div className={s.max}>
                 max value: <input type={'number'}
                                   value={max}
                                   onChange={onChangeHandlerMax}
-                                  className={start >= max ? s.error : ''}/>
+                                  className={maxStyle}/>
             </div>
             <div className={s.button}>
                 <button onClick={onClickHandler}
-                        disabled={start < 0 || start >= max}>set
+                        disabled={disabledButtonStyle}>set
                 </button>
             </div>
         </div>

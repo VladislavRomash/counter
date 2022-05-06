@@ -20,15 +20,18 @@ export const Buttons = ({callback, start, max}: ButtonsPropsType) => {
         callback(name)
     }
 
+    const disabledRes = start >= max || start < 0
+    const disabledInc = score.currentScore >= score.maxScore || start >= max || start < 0
+
     return (
         <div className={s.styleComponents}>
             <span className={s.buttons}>
                 <button onClick={() => onClickHandler('res')}
-                        disabled={start >= max || start < 0}>res</button>
+                        disabled={disabledRes}>res</button>
             </span>
             <span className={s.buttons}>
                 <button onClick={() => onClickHandler('inc')}
-                        disabled={score.currentScore >= score.maxScore || start >= max || start < 0}>inc</button>
+                        disabled={disabledInc}>inc</button>
             </span>
         </div>
     );
