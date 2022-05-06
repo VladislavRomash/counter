@@ -1,14 +1,13 @@
-import {ScoreType} from '../App';
-
 export type ActionType = CounterINCType
     | CounterRESType
     | CounterSettingType
     | ChangeCurrentValue
 
-const initialState: ScoreType =
-    {
-        title: 'Counter App', currentScore: 0, startScore: 0, maxScore: 5
-    }
+export type ScoreType = typeof initialState
+
+const initialState = {
+    title: 'Counter App', currentScore: 0, startScore: 0, maxScore: 5
+}
 
 
 export const counterReducer = (state = initialState, action: ActionType): ScoreType => {
@@ -22,8 +21,8 @@ export const counterReducer = (state = initialState, action: ActionType): ScoreT
         case 'CLICK-BUTTON-SET': {
             return {
                 ...state,
-                startScore: Number(action.startValue),
-                maxScore: Number(action.maxValue),
+                startScore: action.startValue,
+                maxScore: action.maxValue,
             }
         }
         case 'CHANGE-CURRENT-VALUE': {

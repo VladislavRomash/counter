@@ -4,7 +4,7 @@ import {Count} from './Count';
 import {Buttons, ButtonsNameType} from './Buttons';
 import {useSelector} from 'react-redux';
 import {AppRootStateType} from '../redux/store';
-import {ScoreType} from '../App';
+import {ScoreType} from '../redux/reducer';
 
 type CounterPropsType = {
     onclickButton: (name: ButtonsNameType) => void

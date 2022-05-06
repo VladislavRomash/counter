@@ -3,16 +3,10 @@ import './App.css';
 import {ButtonsNameType} from './components/Buttons';
 import {Counter} from './components/Counter';
 import {Settings} from './components/Settings';
-import {changeCurrentValue, counterIncAC, counterResAC, counterSettingAC} from './redux/reducer';
+import {changeCurrentValue, counterIncAC, counterResAC, counterSettingAC, ScoreType} from './redux/reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './redux/store';
 
-export type ScoreType = {
-    title: string
-    currentScore: number
-    startScore: number
-    maxScore: number
-}
 
 export const App = () => {
 

@@ -2,7 +2,7 @@ import React from 'react';
 import s from './css.module/Buttons.module.css'
 import {useSelector} from 'react-redux';
 import {AppRootStateType} from '../redux/store';
-import {ScoreType} from '../App';
+import {ScoreType} from '../redux/reducer';
 
 export type ButtonsNameType = 'set' | 'res' | 'inc'
 
